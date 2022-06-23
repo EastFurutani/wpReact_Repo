@@ -13,7 +13,7 @@ const Main = () => {
     const [deleteId, setDeleteId] = useState([])
 
     const GetEvent = () => {
-        fetch("/api/wordPlayingApi/word")
+        fetch("/word")
             .then(response => response.json())
             .then(data => {
                 setWords(data)
@@ -22,7 +22,7 @@ const Main = () => {
 
     const GetIdOnlyEvent = () => {
         
-        fetch("/api/wordPlayingApi/word/" + getId, {
+        fetch("/word/" + getId, {
             method: "GET"
         })
         .then(response => response.json())
@@ -36,7 +36,7 @@ const Main = () => {
             wordName: postText
         }
 
-        fetch("/api/wordPlayingApi/word", {
+        fetch("/word", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -50,7 +50,7 @@ const Main = () => {
             wordName: putText
         }
 
-        fetch("/api/wordPlayingApi/word/" + putId, {
+        fetch("/word/" + putId, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ const Main = () => {
     }
 
     const DeleteEvent = () => {
-        fetch("/api/wordPlayingApi/word/" + deleteId, {
+        fetch("/word/" + deleteId, {
             method: "DELETE"
         })
     }
