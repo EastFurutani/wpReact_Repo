@@ -16,7 +16,7 @@ const Main = () => {
     const [deleteId, setDeleteId] = useState([])
 
     const GetEvent = () => {
-        fetch("/word")
+        fetch("https://wpapi.azurewebsites.net/word")
             .then(response => response.json())
             .then(data => {
                 setWords(data)
@@ -24,7 +24,7 @@ const Main = () => {
     }
 
     const GetIdOnlyEvent = () => {
-        fetch("/word/" + getId, {
+        fetch("https://wpapi.azurewebsites.net/word/" + getId, {
             method: "GET"
         })
             .then(response => response.json())
@@ -39,7 +39,7 @@ const Main = () => {
             wordType: postText2
         }
 
-        fetch("/word", {
+        fetch("https://wpapi.azurewebsites.net/word", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -54,7 +54,7 @@ const Main = () => {
             wordType: putText2
         }
 
-        fetch("/word/" + putId, {
+        fetch("https://wpapi.azurewebsites.net/word/" + putId, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -64,7 +64,7 @@ const Main = () => {
     }
 
     const DeleteEvent = () => {
-        fetch("/word/" + deleteId, {
+        fetch("https://wpapi.azurewebsites.net/word/" + deleteId, {
             method: "DELETE"
         })
     }
