@@ -7,13 +7,16 @@ const Main = () => {
     const [getData, setGetData] = useState([])
 
     const [postText, setPostText] = useState([])
-    const [putId, setPutId] = useState([])
+    const [postText2, setPostText2] = useState([])
 
+    const [putId, setPutId] = useState([])
     const [putText, setPutText] = useState([])
+    const [putText2, setPutText2] = useState([])
+
     const [deleteId, setDeleteId] = useState([])
 
     const GetEvent = () => {
-        fetch("https://wpapi.azurewebsites.net/word")
+        fetch("/word")
             .then(response => response.json())
             .then(data => {
                 setWords(data)
@@ -21,22 +24,22 @@ const Main = () => {
     }
 
     const GetIdOnlyEvent = () => {
-        
-        fetch("https://wpapi.azurewebsites.net/word/" + getId, {
+        fetch("/word/" + getId, {
             method: "GET"
         })
-        .then(response => response.json())
-        .then(data => {
-            setGetData(data)
-        })
+            .then(response => response.json())
+            .then(data => {
+                setGetData(data)
+            })
     }
 
     const PostEvent = () => {
         let postData = {
-            wordName: postText
+            wordName: postText,
+            wordType: postText2
         }
 
-        fetch("https://wpapi.azurewebsites.net/word", {
+        fetch("/word", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
@@ -47,10 +50,11 @@ const Main = () => {
 
     const PutEvent = () => {
         let putData = {
-            wordName: putText
+            wordName: putText,
+            wordType: putText2
         }
 
-        fetch("https://wpapi.azurewebsites.net/word/" + putId, {
+        fetch("/word/" + putId, {
             method: "PUT",
             headers: {
                 'Content-Type': 'application/json'
@@ -60,7 +64,7 @@ const Main = () => {
     }
 
     const DeleteEvent = () => {
-        fetch("https://wpapi.azurewebsites.net/word/" + deleteId, {
+        fetch("/word/" + deleteId, {
             method: "DELETE"
         })
     }
@@ -69,6 +73,7 @@ const Main = () => {
         return <div>
                     <p>{word.id}</p>
                     <p>{word.wordName}</p>
+                    <p>{word.wordType}</p>
                 </div>
     })
     
@@ -84,6 +89,8 @@ const Main = () => {
             <br />
             {getData.wordName}
             <br />
+            {getData.wordType}
+            <br />
             <input value={getId} onChange={(e) => setGetIdOnly(e.target.value)}></input>
             <br />
             <input type="submit" value="GetId" onClick={() => GetIdOnlyEvent()}></input>
@@ -93,7 +100,11 @@ const Main = () => {
             <br />
 
             <div>
+                WordName:
                 <input value={postText} onChange={(e) => setPostText(e.target.value)}></input>
+                <br />
+                WordType:
+                <input value={postText2} onChange={(e) => setPostText2(e.target.value)}></input>
                 <br />
                 <input type="submit" value="Post" onClick={() => PostEvent()}></input>
             </div>
@@ -105,8 +116,11 @@ const Main = () => {
                 id:
                 <input value={putId} onChange={(e) => setPutId(e.target.value)}></input>
                 <br />
-                Word:
+                WordName:
                 <input value={putText} onChange={(e) => setPutText(e.target.value)}></input>
+                <br />
+                WordType:
+                <input value={putText2} onChange={(e) => setPutText2(e.target.value)}></input>
                 <br />
                 <input type="submit" value="Put" onClick={() => PutEvent()}></input>
             </div>
