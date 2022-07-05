@@ -84,34 +84,36 @@ const Main = () => {
     function createData(id, wordName, wordType){
         return {id, wordName, wordType};
     }
-    
-    const rows = [
-        createData(3, "aiu", "kakiku"),
-        createData(8, "sui", "asu"),
-    ];
+
+    const rows = [];
     let rowData;
 
-    /* const wordsText = words.map((word) =>{
+    const rows2 = [
+        createData(getData.id, getData.wordName, getData.wordType)
+    ]
+
+    const wordsText = words.map((word) =>{
         rowData = createData(word.id, word.wordName, word.wordType);
         rows.push(rowData);
-    }) */
+    })
     
     return (
-        <div>
+        <Box
+            sx={{
+                position: "relative",
+                top: 10,
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-evenly"
+            }}
+        >
             <Box 
                 sx={{
-                    position: "relative",
-                    left: 100,
                     display: "inline-flex",
-                    flexDirection: "column",
+                    flexDirection: "column"
                 }}
             >
-                {/* {wordsText} */}
-                {/* {words.map((word) =>{
-                    rowData = createData(word.id, word.wordName, word.wordType);
-                    rows.push(rowData);
-                })}
-                {console.log(rows)} */}
+                {wordsText}
 
                 <TableContainer component={Paper}>
                     <Table aria-label="simple table">
@@ -123,7 +125,7 @@ const Main = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows.map((row) => {
+                            {rows.map((row) => (
                                 <TableRow
                                     key={row.id}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -132,7 +134,7 @@ const Main = () => {
                                     <TableCell align="right">{row.wordName}</TableCell>
                                     <TableCell align="right">{row.wordType}</TableCell>
                                 </TableRow>
-                            })}
+                            ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
@@ -145,17 +147,40 @@ const Main = () => {
 
             <Box 
                 sx={{
-                    position: "relative",
-                    left: 200,
                     display: "inline-flex",
-                    flexDirection: "column",
+                    flexDirection: "column"
                 }}
             >
-                {getData.id}
+                {/* {getData.id}
                 <br />
                 {getData.wordName}
                 <br />
-                {getData.wordType}
+                {getData.wordType} */}
+
+                <TableContainer component={Paper}>
+                    <Table aria-label="simple table">
+                        <TableHead>
+                            <TableRow>
+                                <TableCell align="right">id</TableCell>
+                                <TableCell align="right">wordName</TableCell>
+                                <TableCell align="right">wordType</TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {rows2.map((row) => (
+                                <TableRow
+                                    key={row.id}
+                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                >
+                                    <TableCell component="th" scope="row">{row.id}</TableCell>
+                                    <TableCell align="right">{row.wordName}</TableCell>
+                                    <TableCell align="right">{row.wordType}</TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
+
                 <br />
                 <TextField variant="outlined" label="id" value={getId} onChange={(e) => setGetIdOnly(e.target.value)}></TextField>
                 {/* <input value={getId} onChange={(e) => setGetIdOnly(e.target.value)}></input> */}
@@ -170,17 +195,13 @@ const Main = () => {
             
             <Box 
                 sx={{
-                    position: "relative",
-                    left: 400,
                     display: "inline-flex",
-                    flexDirection: "column",
+                    flexDirection: "column"
                 }}
-            >
-                WordName:
-                <input value={postText} onChange={(e) => setPostText(e.target.value)}></input>
+            >                
+                <TextField variant="outlined" label="wordName" value={postText} onChange={(e) => setPostText(e.target.value)}></TextField>
                 <br />
-                WordType:
-                <input value={postText2} onChange={(e) => setPostText2(e.target.value)}></input>
+                <TextField variant="outlined" label="wordType" value={postText2} onChange={(e) => setPostText2(e.target.value)}></TextField>
                 <br />
                 <Button variant="contained" onClick={() => PostEvent()}>Post</Button>
             </Box>
@@ -190,20 +211,15 @@ const Main = () => {
 
             <Box 
                 sx={{
-                    position: "relative",
-                    left: 700,
                     display: "inline-flex",
-                    flexDirection: "column",
+                    flexDirection: "column"
                 }}
             >
-                id:
-                <input value={putId} onChange={(e) => setPutId(e.target.value)}></input>
+                <TextField variant="outlined" label="id" value={putId} onChange={(e) => setPutId(e.target.value)}></TextField>
                 <br />
-                WordName:
-                <input value={putText} onChange={(e) => setPutText(e.target.value)}></input>
+                <TextField variant="outlined" label="WordName" value={putText} onChange={(e) => setPutText(e.target.value)}></TextField>
                 <br />
-                WordType:
-                <input value={putText2} onChange={(e) => setPutText2(e.target.value)}></input>
+                <TextField variant="outlined" label="WordType" value={putText2} onChange={(e) => setPutText2(e.target.value)}></TextField>
                 <br />
                 <Button variant="contained" onClick={() => PutEvent()}>Put</Button>
             </Box>
@@ -213,17 +229,15 @@ const Main = () => {
 
             <Box 
                 sx={{
-                    position: "relative",
-                    left: 1100,
                     display: "inline-flex",
-                    flexDirection: "column",
+                    flexDirection: "column"
                 }}
             >
-                <input value={deleteId} onChange={(e) => setDeleteId(e.target.value)}></input>
+                <TextField variant="outlined" label="id" value={deleteId} onChange={(e) => setDeleteId(e.target.value)}></TextField>
                 <br />
                 <Button variant="contained" onClick={() => DeleteEvent()}>Delete</Button>
             </Box>
-        </div>   
+        </Box>   
     )
 }
 
