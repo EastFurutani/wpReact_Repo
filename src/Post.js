@@ -13,8 +13,10 @@ const Post = () => {
     const [postText2, setPostText2] = useState([])
 
     // const {register, handleSubmit, formState: {errors}, formState} = useForm();
-    const {register, handleSubmit, formState: {errors}, formState} = useForm();
-    const onSubmit = data => console.log(data);
+    const {register, handleSubmit, formState} = useForm({
+        mode: "onChange"
+    });
+    const onSubmit = data=> console.log(data);
 
     const PostEvent = () => {
         let postData = {
@@ -34,31 +36,31 @@ const Post = () => {
     console.log(formState.isValid)
 
     return(
-        <Box 
-            sx={{
-                display: "inline-flex",
-                flexDirection: "column"
-            }}
-        >
-            <form onSubmit={handleSubmit(onSubmit)}>
-                    
-                <TextField {...register("postWN", {required: true, maxLength: 20})} variant="outlined" label="wordName" value={postText} onChange={(e) => setPostText(e.target.value)}></TextField>
-                <br />
-                {errors.postWN?.type === "required" && <p>This field is required</p>}
-                {errors.postWN?.type === "maxLength" && (
-                    <p>20文字以下です</p>
-                )}
-                <br />
-                <TextField {...register("postWT", {required: true, maxLength: 15})} variant="outlined" label="wordType" value={postText2} onChange={(e) => setPostText2(e.target.value)}></TextField>
-                {errors.postWT?.type === "required" && <p>This field is required</p>}
-                {errors.postWT?.type === "maxLength" && (
-                    <p>15文字以下です</p>
-                )}
-                <br />
-                <Button variant="contained" type="submit">validation確認</Button>
-                <Button variant="contained" disabled={!formState.isValid} onClick={() => PostEvent()}>Post</Button>
-            </form>
-        </Box>
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Box 
+                sx={{
+                    display: "inline-flex",
+                    flexDirection: "column"
+                }}
+            >
+                        
+                    <TextField {...register("postWN", {required: true, maxLength: 20})} variant="outlined" label="wordName" value={postText} onChange={(e) => setPostText(e.target.value)}></TextField>
+                    <br />
+                    {formState.errors.postWN?.type === "required" && <p>This field is required</p>}
+                    {formState.errors.postWN?.type === "maxLength" && (
+                        <p>20文字以下です</p>
+                    )}
+                    <br />
+                    <TextField {...register("postWT", {required: true, maxLength: 15})} variant="outlined" label="wordType" value={postText2} onChange={(e) => setPostText2(e.target.value)}></TextField>
+                    {formState.errors.postWT?.type === "required" && <p>This field is required</p>}
+                    {formState.errors.postWT?.type === "maxLength" && (
+                        <p>15文字以下です</p>
+                    )}
+                    <br />
+                    <Button variant="contained" type="submit">validation確認</Button>
+                    <Button variant="contained" disabled={!formState.isValid} onClick={() => PostEvent()}>Post</Button>
+            </Box>
+        </form>
     )
 }
 
