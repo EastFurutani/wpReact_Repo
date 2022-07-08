@@ -6,17 +6,25 @@ import { Box, Container, createTheme, ThemeProvider } from "@mui/system";
 import { isDisabled } from "@testing-library/user-event/dist/utils";
 import React, {useState} from "react";
 import { useForm } from 'react-hook-form';
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
+const SignupSchema = yup.object().shape({
+    postWN: yup.string().required(),
+    postWT: yup.number().required()
+});
 
 const Post = () => {
     const [postText, setPostText] = useState([])
     const [postText2, setPostText2] = useState([])
 
+    const [isShow, setIsShow] = useState(false);
+
     // const {register, handleSubmit, formState: {errors}, formState} = useForm();
     const {register, handleSubmit, formState} = useForm({
-        mode: "onChange"
+        resolver: yupResolver(SignupSchema)
     });
-    const onSubmit = data=> console.log(data);
+    const onSubmit = (data) => alert(JSON.stringify(data));
 
     const PostEvent = () => {
         let postData = {
@@ -57,8 +65,16 @@ const Post = () => {
                         <p>15文字以下です</p>
                     )}
                     <br />
-                    <Button variant="contained" type="submit">validation確認</Button>
-                    <Button variant="contained" disabled={!formState.isValid} onClick={() => PostEvent()}>Post</Button>
+                    {isShow ? (
+                        <>
+                            <Button variant="contained" onClick={() => PostEvent()}>Post</Button>
+                        </>
+                    ) : (
+                        <>
+                            <Button variant="contained" disabled={0}>Post</Button>
+                        </>
+                    )}
+                    <button onClick={() => setIsShow((p) => !p)}>toggle</button>
             </Box>
         </form>
     )
