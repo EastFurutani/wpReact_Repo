@@ -12,9 +12,8 @@ const Put = () => {
     const [putText2, setPutText2] = useState([])
 
     const {register, handleSubmit, formState: {errors} } = useForm();
-    const onSubmit = data => console.log(data);
-
-    const PutEvent = () => {
+    const onSubmit = data => {
+        console.log(data);
         let putData = {
             wordName: putText,
             wordType: putText2
@@ -38,23 +37,24 @@ const Put = () => {
                 }}
             >
                 <TextField {...register("putId", {required: true, pattern: /\d/})} variant="outlined" label="id" value={putId} onChange={(e) => setPutId(e.target.value)}></TextField>
+                {errors.putId?.type === "required" && <p>入力して下さい</p>}
                 {errors.putId?.type === "pattern" && (
                         <p>入力値は整数です</p>
                 )}
                 <br />
                 <TextField {...register("putWN", {required: true, maxLength: 20})} variant="outlined" label="WordName" value={putText} onChange={(e) => setPutText(e.target.value)}></TextField>
-                {errors.putWN?.type === "required" && <p>This field is required</p>}
+                {errors.putWN?.type === "required" && <p>入力して下さい</p>}
                 {errors.putWN?.type === "maxLength" && (
                     <p>20文字以下です</p>
                 )}
                 <br />
                 <TextField {...register("putWT", {required: true, maxLength: 15})} variant="outlined" label="WordType" value={putText2} onChange={(e) => setPutText2(e.target.value)}></TextField>
-                {errors.putWT?.type === "required" && <p>This field is required</p>}
+                {errors.putWT?.type === "required" && <p>入力して下さい</p>}
                 {errors.putWT?.type === "maxLength" && (
                     <p>15文字以下です</p>
                 )}
                 <br />
-                <Button variant="contained" type="submit" onClick={() => PutEvent()}>Put</Button>
+                <Button variant="contained" type="submit">Put</Button>
             </Box>
         </form>
     )

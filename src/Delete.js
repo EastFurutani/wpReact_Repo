@@ -10,28 +10,31 @@ const Delete = () => {
     const [deleteId, setDeleteId] = useState([])
 
     const {register, handleSubmit, formState: {errors} } = useForm();
-    const onSubmit = data => console.log(data);
 
-    const DeleteEvent = () => {
+    const onSubmit = data => {
+        console.log(data);
         fetch("https://wpapi.azurewebsites.net/word/" + deleteId, {
             method: "DELETE"
         })
     }
 
     return(
-        <Box 
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Box 
             sx={{
                 display: "inline-flex",
                 flexDirection: "column"
             }}
-        >
-            <TextField {...register("deleteId", {required: true, pattern: /\d/})} variant="outlined" label="id" value={deleteId} onChange={(e) => setDeleteId(e.target.value)}></TextField>
-            {errors.deleteId?.type === "pattern" && (
-                <p>入力値は整数です</p>
-            )}
-            <br />
-            <Button variant="contained" onClick={() => DeleteEvent()}>Delete</Button>
-        </Box>
+            >
+                <TextField {...register("deleteId", {required: true, pattern: /\d/})} variant="outlined" label="id" value={deleteId} onChange={(e) => setDeleteId(e.target.value)}></TextField>
+                {errors.deleteId?.type === "required" && <p>入力して下さい</p>}
+                {errors.deleteId?.type === "pattern" && (
+                    <p>入力値は整数です</p>
+                )}
+                <br />
+                <Button variant="contained" type="submit">Delete</Button>
+            </Box>
+        </form>
     )
 }
 

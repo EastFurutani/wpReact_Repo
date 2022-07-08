@@ -12,9 +12,9 @@ const GetId = () => {
     const [getData, setGetData] = useState([])
 
     const {register, handleSubmit, formState: {errors} } = useForm();
-    const onSubmit = data => console.log(data);
 
-    const GetIdOnlyEvent = () => {
+    const onSubmit = data => {
+        console.log(data);
         fetch("https://wpapi.azurewebsites.net/word/" + getId, {
             method: "GET"
         })
@@ -33,7 +33,7 @@ const GetId = () => {
     ]
 
     return(
-        <form onSubmit={handleSubmit(onsubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)}>
             <Box 
                 sx={{
                     display: "inline-flex",
@@ -66,11 +66,12 @@ const GetId = () => {
 
                 <br />
                 <TextField {...register("getId", {required: true, pattern: /\d/})} variant="outlined" label="id" value={getId} onChange={(e) => setGetIdOnly(e.target.value)}></TextField>
+                {errors.getId?.type === "required" && <p>入力して下さい</p>}
                 {errors.getId?.type === "pattern" && (
                         <p>入力値は整数です</p>
                 )}
                 <br />
-                <Button variant="contained" type="submit" onClick={() => GetIdOnlyEvent()}>GetId</Button>
+                <Button variant="contained" type="submit">GetId</Button>
             </Box>
         </form>
     )

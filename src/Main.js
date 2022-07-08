@@ -31,7 +31,8 @@ const Main = () => {
     const [componentState, setComponentState] = useState([])
 
     return (
-        <Box
+        <Box>
+            <Box
             sx={{
                 position: "relative",
                 top: 10,
@@ -39,19 +40,27 @@ const Main = () => {
                 flexDirection: "row",
                 justifyContent: "space-evenly"
             }}
-        >
-            <Button variant="contained" onClick={() => setComponentState(0)}>GetAllへ</Button>
+            >
+                <Button variant="contained" onClick={() => setComponentState(0)}>GetAllへ</Button>
 
-            <Button variant="contained" onClick={() => setComponentState(1)}>GetIdへ</Button>
+                <Button variant="contained" onClick={() => setComponentState(1)}>GetIdへ</Button>
 
-            <Button variant="contained" onClick={() => setComponentState(2)}>Postへ</Button>
+                <Button variant="contained" onClick={() => setComponentState(2)}>Postへ</Button>
 
-            <Button variant="contained" onClick={() => setComponentState(3)}>Putへ</Button>
+                <Button variant="contained" onClick={() => setComponentState(3)}>Putへ</Button>
 
-            <Button variant="contained" onClick={() => setComponentState(4)}>Deleteへ</Button>
-
-            <div><ComponentChange num={componentState} /></div>
-
+                <Button variant="contained" onClick={() => setComponentState(4)}>Deleteへ</Button>
+            </Box>
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    position: "relative",
+                    top: 50
+                }}
+            >
+                <div><ComponentChange num={componentState} /></div>
+            </Box>
         </Box>
     )
 }
