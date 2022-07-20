@@ -11,13 +11,8 @@ type GetProps = {
     wordType?: string
 }
 
-type setWordsProps = {
-  words: (number | string)[]
-}
-
-
-const GetAll = (props: GetProps) => {
-    const [words, setWords] = useState<setWordsProps[]>([]);
+const GetAll = () => {
+    const [words, setWords] = useState<GetProps[]>([]);
 
     const {register, handleSubmit, formState: {errors} } = useForm();
     
@@ -29,18 +24,6 @@ const GetAll = (props: GetProps) => {
             })
     }
 
-    function createData(id: number, wordName: string, wordType: string){
-        return {id, wordName, wordType};
-    }
-
-    const rows: (number | string)[] = [];
-    let rowData: (number | string);
-
-    const wordsText = words.map((word) => {
-        rowData = createData(word.id, word.wordName, word.wordType);
-        rows.push(rowData);
-    })
-
     return(
         <Box 
             sx={{
@@ -48,7 +31,6 @@ const GetAll = (props: GetProps) => {
                 flexDirection: "column"
             }}
         >
-            {wordsText}
 
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -60,7 +42,7 @@ const GetAll = (props: GetProps) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {words.map((row) => (
                             <TableRow
                                 key={row.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

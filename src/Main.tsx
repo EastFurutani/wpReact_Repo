@@ -12,31 +12,48 @@ import Put from "./Put";
 import Delete from "./Delete";
 import { type } from "@testing-library/user-event/dist/type";
 
-type Props = {
+/* type Props = {
   num?: number
-}
+} */
 
 //const [select, setSelect] = useState<number>();
 
-const ComponentChange = (props: Props): ReactElement => {
+/* const ComponentChange = (prop: number): ReactElement => {
     //const num2: number = num;
-    if(props.num == 0) {
+    if(prop === 0) {
         return <GetAll />
-    } else if(props.num == 1) {
+    } else if(props.num === 1) {
         return <GetId />
-    } else if(props.num == 2) {
+    } else if(props.num === 2) {
         return <Post />
-    } else if(props.num == 3) {
+    } else if(props.num === 3) {
         return <Put />
-    } else if(props.num == 4) {
+    } else if(props.num === 4) {
         return <Delete />
     } else {
       return <div>0</div>
     }
-}
+} */
 
-const Main = (props: Props) => {
-    //const [componentState, setComponentState] = useState<number>();
+const Main = () => {
+    const [componentState, setComponentState] = useState<number>();
+
+    const ComponentChange = (num?: number): ReactElement => {
+      //const num2: number = num;
+      if(num === 0) {
+          return <GetAll />
+      } else if(num === 1) {
+          return <GetId />
+      } else if(num === 2) {
+          return <Post />
+      } else if(num === 3) {
+          return <Put />
+      } else if(num === 4) {
+          return <Delete />
+      } else {
+        return <div>0</div>
+      }
+  }
 
     return (
         <Box>
@@ -49,15 +66,15 @@ const Main = (props: Props) => {
                 justifyContent: "space-evenly"
             }}
             >
-                <Button variant="contained" onClick={() => props.num = 0}>GetAllへ</Button>
+                <Button variant="contained" onClick={() => setComponentState(0)}>GetAllへ</Button>
 
-                <Button variant="contained" onClick={() => props.num = 1}>GetIdへ</Button>
+                <Button variant="contained" onClick={() => setComponentState(1)}>GetIdへ</Button>
 
-                <Button variant="contained" onClick={() => props.num = 2}>Postへ</Button>
+                <Button variant="contained" onClick={() => setComponentState(2)}>Postへ</Button>
 
-                <Button variant="contained" onClick={() => props.num = 3}>Putへ</Button>
+                <Button variant="contained" onClick={() => setComponentState(3)}>Putへ</Button>
 
-                <Button variant="contained" onClick={() => props.num = 4}>Deleteへ</Button>
+                <Button variant="contained" onClick={() => setComponentState(4)}>Deleteへ</Button>
             </Box>
             <Box
                 sx={{
@@ -67,7 +84,9 @@ const Main = (props: Props) => {
                     top: 50
                 }}
             >
-                <div><ComponentChange /></div>
+                {/* <div><ComponentChange prop={componentState}/></div> */}
+
+                {ComponentChange(componentState)}
             </Box>
         </Box>
     )

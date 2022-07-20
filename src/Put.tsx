@@ -6,13 +6,12 @@ import React, {useState} from "react";
 import { useForm } from 'react-hook-form';
 
 const Put = () => {
-    const [putId, setPutId] = useState([])
-    const [putText, setPutText] = useState([])
-    const [putText2, setPutText2] = useState([])
+    const [putId, setPutId] = useState(String)
+    const [putText, setPutText] = useState(String)
+    const [putText2, setPutText2] = useState(String)
 
     const {register, handleSubmit, formState: {errors} } = useForm();
-    const onSubmit = data => {
-        console.log(data);
+    const onSubmit = () => {
         let putData = {
             wordName: putText,
             wordType: putText2
@@ -36,20 +35,20 @@ const Put = () => {
                 }}
             >
                 <TextField {...register("putId", {required: true, pattern: /\d/})} variant="outlined" label="id" value={putId} onChange={(e) => setPutId(e.target.value)}></TextField>
-                {errors.putId?.type === "required" && <p>入力して下さい</p>}
-                {errors.putId?.type === "pattern" && (
+                {errors.putId?.required && <p>入力して下さい</p>}
+                {errors.putId?.pattern && (
                         <p>入力値は整数です</p>
                 )}
                 <br />
                 <TextField {...register("putWN", {required: true, maxLength: 20})} variant="outlined" label="WordName" value={putText} onChange={(e) => setPutText(e.target.value)}></TextField>
-                {errors.putWN?.type === "required" && <p>入力して下さい</p>}
-                {errors.putWN?.type === "maxLength" && (
+                {errors.putWN?.required && <p>入力して下さい</p>}
+                {errors.putWN?.maxLength && (
                     <p>20文字以下です</p>
                 )}
                 <br />
                 <TextField {...register("putWT", {required: true, maxLength: 15})} variant="outlined" label="WordType" value={putText2} onChange={(e) => setPutText2(e.target.value)}></TextField>
-                {errors.putWT?.type === "required" && <p>入力して下さい</p>}
-                {errors.putWT?.type === "maxLength" && (
+                {errors.putWT?.required && <p>入力して下さい</p>}
+                {errors.putWT?.maxLength && (
                     <p>15文字以下です</p>
                 )}
                 <br />
