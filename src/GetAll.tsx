@@ -15,7 +15,7 @@ const GetAll = () => {
     const [words, setWords] = useState<GetProps[]>([]);
 
     const {register, handleSubmit, formState: {errors} } = useForm();
-    
+
     const GetEvent = () => {
         fetch("https://wpapi.azurewebsites.net/word")
             .then(response => response.json())
