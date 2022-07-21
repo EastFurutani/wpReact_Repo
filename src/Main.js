@@ -32,7 +32,7 @@ const Main = () => {
 
     return (
         <Box>
-            <Box
+            {/* <Box
             sx={{
                 position: "relative",
                 top: 10,
@@ -60,7 +60,8 @@ const Main = () => {
                 }}
             >
                 <div><ComponentChange num={componentState} /></div>
-            </Box>
+            </Box> */}
+            0
         </Box>
     )
 }
