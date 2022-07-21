@@ -1,28 +1,37 @@
 import styled from "@emotion/styled";
+import { ErrorMessage } from "@hookform/error-message";
 import { Button, makeStyles, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TextField } from "@mui/material";
 import Paper from '@mui/material/Paper';
 import { Box, Container, createTheme, ThemeProvider } from "@mui/system";
 import React, {useState} from "react";
 import { useForm } from 'react-hook-form';
 
-type GetProps = {
-    id?: number,
-    wordName?: string,
-    wordType?: string
-}
 
 const GetAll = () => {
-    const [words, setWords] = useState<GetProps[]>([]);
+    const [words, setWords] = useState([])
 
     const {register, handleSubmit, formState: {errors} } = useForm();
+    const onSubmit = data => console.log(data);
 
     const GetEvent = () => {
         fetch("https://wpapi.azurewebsites.net/word")
             .then(response => response.json())
             .then(data => {
-              setWords(data)
+                setWords(data)
             })
     }
+
+    function createData(id, wordName, wordType){
+        return {id, wordName, wordType};
+    }
+
+    const rows = [];
+    let rowData;
+
+    const wordsText = words.map((word) =>{
+        rowData = createData(word.id, word.wordName, word.wordType);
+        rows.push(rowData);
+    })
 
     return(
         <Box 
@@ -31,6 +40,7 @@ const GetAll = () => {
                 flexDirection: "column"
             }}
         >
+            {wordsText}
 
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -42,7 +52,7 @@ const GetAll = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {words.map((row) => (
+                        {rows.map((row) => (
                             <TableRow
                                 key={row.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
