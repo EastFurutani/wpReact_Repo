@@ -24,13 +24,15 @@ const GetId = () => {
             })
     }
 
-    function createData(id, wordName, wordType){
+    /* function createData(id, wordName, wordType){
         return {id, wordName, wordType};
     }
 
     const rows2 = [
         createData(getData.id, getData.wordName, getData.wordType)
-    ]
+    ] */
+
+    const GetArray = [getData]
 
     return(
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -50,7 +52,7 @@ const GetId = () => {
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {rows2.map((row) => (
+                            {GetArray.map((row) => (
                                 <TableRow
                                     key={row.id}
                                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}

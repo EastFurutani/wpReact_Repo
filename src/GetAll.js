@@ -11,7 +11,7 @@ const GetAll = () => {
     const [words, setWords] = useState([])
 
     const {register, handleSubmit, formState: {errors} } = useForm();
-    const onSubmit = data => console.log(data);
+    //const onSubmit = data => console.log(data);
 
     const GetEvent = () => {
         fetch("https://wpapi.azurewebsites.net/word")
@@ -21,7 +21,7 @@ const GetAll = () => {
             })
     }
 
-    function createData(id, wordName, wordType){
+    /* function createData(id, wordName, wordType){
         return {id, wordName, wordType};
     }
 
@@ -32,7 +32,7 @@ const GetAll = () => {
         rowData = createData(word.id, word.wordName, word.wordType);
         rows.push(rowData);
     })
-
+ */
     return(
         <Box 
             sx={{
@@ -40,7 +40,6 @@ const GetAll = () => {
                 flexDirection: "column"
             }}
         >
-            {wordsText}
 
             <TableContainer component={Paper}>
                 <Table aria-label="simple table">
@@ -52,7 +51,7 @@ const GetAll = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {rows.map((row) => (
+                        {words.map((row) => (
                             <TableRow
                                 key={row.id}
                                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
